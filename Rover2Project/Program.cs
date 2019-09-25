@@ -28,7 +28,7 @@ namespace Rover2Project
             myRover.interfaceWithUser();
 
         }
-        public class Rover //if in future have multiple give a name string
+        public class Rover //if in the future there were multiple rovers, they'd need a name string
         {
             public struct ResultType {
                 public bool succeeded;
@@ -40,11 +40,11 @@ namespace Rover2Project
                 }
         
             }
-            public class Coordinates //if using multiple coordinate system for different activities they should have posession of own delegate
+            public class Coordinates //if using multiple coordinate system for different activities they should have posession of own delegate rather than sharing rover's delegate
             {
                 public int X, Y;
 
-                //later if the coordinates maximums need to be changed built in methods in the get and set could protect against
+                //later if the coordinates' maximums need to be changed, built in methods in the get and set could protect against
                 //moving the maxX to less than the current coordinate or to alter current location if changing orientation or numbering
                 //of the coordinate system
                 public int maxX { get; set; }
@@ -78,17 +78,18 @@ namespace Rover2Project
             //Orientation methods are in a dictionary so the commands can be keys, and keys can be automatically updated when new methods added (by rover constructor) 
             Dictionary<string, MethodInfo> orientationCommands = new Dictionary<string, MethodInfo>();
 
-            //Movements put into delegate method to execute movement command based on orientation rover is in
+            //MoveActions provide the value for the delegate when it is executed. The delegate holds the last orientation method it has been given.
             //This is where to add movement functionality
             Dictionary<string, int> moveActions = new Dictionary<string, int>() {
                 {"M",1 }
-              //,{"B", -1 }
+              //,{"B", -1 } //Remove comment lines to see how an additional moveAction is added to the program.
             };
 
             //If rover in future requires actions unrelated to movement they should be put in an action dictionary
 
-//This class is what needs to be changed to have extra direction methods they are automatically added to dictionary through rover constructor
-//And the dictionary is used in producing the checks and information for acceptable keyboard input
+            //This class is where to add additional direction methods. They are automatically added to their dictionary through rover constructor
+            //And the dictionary is used in producing the checks and information for acceptable keyboard input
+            //Method name should be a single character that hasn't been used already as it will become the keyboard command and dictionary key
             public static class Directions
             {
                 public static Coordinates N(Coordinates coords, int Scale)
@@ -128,7 +129,7 @@ namespace Rover2Project
                 MethodInfo methodInfo;
                 foreach (MethodInfo directionMethod in typeof(Directions).GetMethods())
                 {
-                    if (directionMethod.Name.Length == 1)
+                    if (directionMethod.Name.Length == 1) // length == 1 is necessary to exclude in-built default class methods
                     {
                         key = directionMethod.Name;
                         methodInfo = typeof(Directions).GetMethod(key);
@@ -139,19 +140,19 @@ namespace Rover2Project
             }
 
             //The delegate holds the orientation, then movement is applied to the deligated orientation
-            //There is one delegate for the rover, not one per coordinates, so if multiple coordinates used delegate will need to be reset
-            //With switches between coordinate groups or code will need restructing so they hhave their own delegates
+            //There is one delegate for the rover, not one per coordinates, so if multiple coordinates are used, delegate will need to be reset
+            //When changing to a new Coordinates, the delegate needs to be reset to the Coordinates last orientation
             public delegate Coordinates Move(Coordinates coords, int numberExecutions); 
             Move move = null;
 
-            private bool unitTesting = false; //main takes zero arguments unless unit testing currently if this changes the unit testing code will need to use mocking of the console instead
+            private bool unitTesting = false; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
 
 
             
             public Coordinates lastCoordinates;
             public Rover(bool unitTesting = false)   
             {
-                lastCoordinates = new Coordinates(); //if want to create with custom coordinate system could use rover constructor into coordinate constructor
+                lastCoordinates = new Coordinates(); //To create a rover with a custom coordinate system, use rover constructor to provide variable for the coordinates constructor
                 orientationCommands = MakeOrientationCommandDictionary(orientationCommands);
                 applyDirectionToDelegate(lastCoordinates.lastOrientation);
                 this.unitTesting = unitTesting;
