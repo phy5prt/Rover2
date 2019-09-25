@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rover2Project", "Rover2Project\Rover2Project.csproj", "{F3070D00-5054-42FE-A955-51A95C7C79DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoverProject2UnitTests", "RoverProject2UnitTests\RoverProject2UnitTests.csproj", "{50BAF9FE-911D-46C5-9B27-9CE27AB24677}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3070D00-5054-42FE-A955-51A95C7C79DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3070D00-5054-42FE-A955-51A95C7C79DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3070D00-5054-42FE-A955-51A95C7C79DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3070D00-5054-42FE-A955-51A95C7C79DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50BAF9FE-911D-46C5-9B27-9CE27AB24677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50BAF9FE-911D-46C5-9B27-9CE27AB24677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50BAF9FE-911D-46C5-9B27-9CE27AB24677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50BAF9FE-911D-46C5-9B27-9CE27AB24677}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43B287BB-E2FB-424F-BB59-1854DC09EC63}
+	EndGlobalSection
+EndGlobal
