@@ -166,8 +166,8 @@ namespace Rover2Project
                 {
                     if (!(orientationCommands.ContainsKey(input[i].ToString()) || moveActions.ContainsKey(input[i].ToString())))
                     {
-                        Console.WriteLine($"The command {input} has invalid instruction in it {input[i]}.\r\nRover location and orientation has not been changed.\r\nPlease input new string ");
-                        Console.WriteLine($"Valid movements {string.Join("", moveActions.Keys.ToArray())}.\r\nValid directions  {string.Join("", orientationCommands.Keys.ToArray())}");
+                        Console.WriteLine($"The command {input} contains the invalid instruction: {input[i]}.\r\nRover location and orientation has not been changed.\r\nPlease input new command sequence ");
+                        Console.WriteLine($"Valid movement command(s) are: {string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands are:  {string.Join("", orientationCommands.Keys.ToArray())}");
 
                         input = askForValidInputUntilReceivedThenReturnIt(Console.ReadLine().ToString());
                     }
@@ -181,44 +181,44 @@ namespace Rover2Project
             }
             public String interfaceWithUser()
             { 
-                Console.WriteLine("Rover Activated");
+                Console.WriteLine("Rover Activated. Move rover with a sequence of movement commands and direction commands. E.g, 'EMMSM'");
                 String userResponse = "";
                 while (userResponse != "Q" || userResponse != "q")//just incase using breaks to do it so could be set as true
                 {
 
-                    Console.WriteLine(lastCoordinates.getCoordDataShort());
-                    Console.WriteLine($"Please Enter Command.\r\nValid movements { string.Join("", moveActions.Keys.ToArray())}.\r\nValid directions  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nReturn for current status. Or press Q/q to quit.");
+                    Console.WriteLine("Your current location and orientation is: " + lastCoordinates.getCoordDataShort());
+                    Console.WriteLine($"Please Enter Command:\r\nValid movement commands: { string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands:  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nPress return for current status. Or press Q/q to quit.");
                     userResponse = Console.ReadLine().ToString(); if (userResponse == "Q" || userResponse == "q") { break; }
                     ResultType result;
                     while (!(result = ExecutedCommand(askForValidInputUntilReceivedThenReturnIt(userResponse))).succeeded) //executed command checks command is in bounds
                     {
                         //to get the fail information we have to run the function twice, so either get a resultVariable and a have a do while or turn executedCommand to just return bool without error feedback
-                            Console.WriteLine($"Please reenter Command.\r\nLast Command exceeded allowed area at {result.failInformation}.\r\nThe rover has not been activated.\r\nValid movements { string.Join("", moveActions.Keys.ToArray())}.\r\nValid directions  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nReturn for current status. ");
-                            userResponse = Console.ReadLine().ToString(); //if (userResponse == "Q") { break; } //would need double break this is where if user has problems could be trapped could be it in function
+                            Console.WriteLine($"Please re-enter you command:\r\nLast Command exceeded allowed area at {result.failInformation}.\r\nThe rover has not been activated.\r\nValid movement commands: { string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands:  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nPress return for current status. ");
+                            userResponse = Console.ReadLine().ToString(); //if (userResponse == "Q") { break; } //would need double break this is where if user has problems could be trapped could be it in function. To avoid nested while loop could use method instead enabling 'break' to work.
                     };
                 }
                 return userResponse;
             }
+
             //Runs test to see if command will go out of bounds
-            //If out of bound requests new command
-            //If command doesnt take out of bounds then applies it to rover
-            
+            //If out of bounds, requests new command
+            //If command doesn't take out of bounds then applies it to rover
             public ResultType ExecutedCommand(String Command) 
             {
-                Coordinates testRoute = new Coordinates (lastCoordinates.X, lastCoordinates.Y, lastCoordinates.maxX, lastCoordinates.minX, lastCoordinates.maxY, lastCoordinates.minY, lastCoordinates.lastOrientation); //lates use test Coordinates
+                Coordinates testRoute = new Coordinates (lastCoordinates.X, lastCoordinates.Y, lastCoordinates.maxX, lastCoordinates.minX, lastCoordinates.maxY, lastCoordinates.minY, lastCoordinates.lastOrientation);
                 Coordinates[] testThenRover = new Coordinates[2] { testRoute, lastCoordinates };
-                //the reason we dont just put the rover coordinates in and reset them if they go out of bounds is that the actual rover would have to retrace steps to do so.
-                //It also allows for that the rover may have more functionality it future. 
-                //It may collect data as it goes or other actions that dont effect movement or orientation like take a soil sample or photograph.
+                //The reason we dont just put the rover coordinates in and reset them if they go out of bounds is that the actual rover would have to retrace steps to do so.
+                //It also accommodates the rover having more functionality in the future. 
+                //It may collect data as it goes, or carry out other actions that doesn't effect movement or orientation like take a soil sample or photograph.
                 //These could be set only to be exectuted by the rover once its route is checked.
 
                 for (int j = 0; j < testThenRover.Length; j++)
                 {
                         
                         applyDirectionToDelegate(testThenRover[j].lastOrientation); 
-                    //because test rover and real rover share a delegate it needs to be reset after test rover has run
-                    //this suggests maybe the coordinate system should store its own delegate. 
-                    //this would allow different maps different limits, say it had all terain mode with sensors protected it may have a larger map in this mode
+                    //Because the test rover and real rover share a delegate it needs to be reset after the test rover has run
+                    //This suggests maybe the coordinate system should store its own delegate. 
+                    //This would allow different maps different limits, e.g, it had all-terrain mode with sensors protected, it may have a larger map in this mode
 
                     for (int i = 0; i < Command.Length; i++)
                     {
@@ -238,7 +238,7 @@ namespace Rover2Project
                             return failErrorResult; 
                         }
 
-                        //If the command has resulted in the test going out of bounds this information is returned and the rover itself isn't moved
+                        //If the command has resulted in the test going out of bounds, this information is returned and the rover itself isn't moved
                         if (j ==0) {
                             if (testThenRover[j].Y < testThenRover[j].minY || testThenRover[j].Y > testThenRover[j].maxY || testThenRover[j].X > testThenRover[j].maxX || testThenRover[j].X < testThenRover[j].minX)
                             {
