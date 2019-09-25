@@ -188,13 +188,13 @@ namespace Rover2Project
 
                     Console.WriteLine(lastCoordinates.getCoordDataShort());
                     Console.WriteLine($"Please Enter Command.\r\nValid movements { string.Join("", moveActions.Keys.ToArray())}.\r\nValid directions  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nReturn for current status. Or press Q/q to quit.");
-                    userResponse = Console.ReadLine().ToString(); if (userResponse == "Q" || userResponse == "Q") { break; }
+                    userResponse = Console.ReadLine().ToString(); if (userResponse == "Q" || userResponse == "q") { break; }
                     ResultType result;
                     while (!(result = ExecutedCommand(askForValidInputUntilReceivedThenReturnIt(userResponse))).succeeded) //executed command checks command is in bounds
                     {
                         //to get the fail information we have to run the function twice, so either get a resultVariable and a have a do while or turn executedCommand to just return bool without error feedback
                             Console.WriteLine($"Please reenter Command.\r\nLast Command exceeded allowed area at {result.failInformation}.\r\nThe rover has not been activated.\r\nValid movements { string.Join("", moveActions.Keys.ToArray())}.\r\nValid directions  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nReturn for current status. ");
-                            userResponse = Console.ReadLine().ToString(); //if (userResponse == "Q") { break; } would need double break this is where if user has problems could be trapped could be it in function
+                            userResponse = Console.ReadLine().ToString(); //if (userResponse == "Q") { break; } //would need double break this is where if user has problems could be trapped could be it in function
                     };
                 }
                 return userResponse;
