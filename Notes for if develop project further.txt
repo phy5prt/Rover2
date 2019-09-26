@@ -1,0 +1,3 @@
+put in map system so the rover can map an area
+concider climbing, responding to condition, 3d terrain with obsticals
+consider going around a globe so go far enough south will end up going past pole and meeting self
