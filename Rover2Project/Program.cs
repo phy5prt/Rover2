@@ -13,16 +13,16 @@ namespace Rover2Project
         public static void Main(String[] command)
         {
 
-             //This block just catches unit tests
+            //This block just catches unit tests
 
-                bool unitTesting = (command.Length > 0);
-                //if (unitTesting)
-                //{
-                //Rover myRoverUnitTest = new Rover(unitTesting);
-                //String commandStr = (command.Length > 0) ? command[0] : "";
-                //    myRoverUnitTest.tryExecuteCommandGetResult(myRoverUnitTest.askForValidInputUntilReceivedThenReturnIt(commandStr));
-                //    return; //Just returning void so unit test doesnt trigger myRover code after myRoverUnitTest
-                //}
+            bool unitTesting = (command.Length > 0);
+            if (unitTesting)
+            {
+                Rover myRoverUnitTest = new Rover(unitTesting);
+                String commandStr = (command.Length > 0) ? command[0] : "";
+                myRoverUnitTest.tryExecuteCommandGetResult(myRoverUnitTest.askForValidInputUntilReceivedThenReturnIt(commandStr));
+                return; //Just returning void so unit test doesnt trigger myRover code after myRoverUnitTest
+            }
 
             //End unit test block
 
@@ -36,11 +36,9 @@ namespace Rover2Project
                 public bool succeeded;
                 public string failInformation;
 
-                public ResultType(bool v) : this()
-                {
-                }
+               
 
-                ResultType(bool succeeded, string failInformation = "") {
+                public ResultType(bool succeeded, string failInformation = "") {
                     this.succeeded = succeeded;
                     if (failInformation == "") { this.failInformation = this.succeeded ?   "succeeded" : "failed"; }
                     this.failInformation = failInformation;
@@ -132,7 +130,7 @@ namespace Rover2Project
 
                 //End of example method comment block
             }
-            private Dictionary<string, MethodInfo> MakeOrientationCommandDictionary(Dictionary<string, MethodInfo> orientationCommands)
+           private Dictionary<string, MethodInfo> MakeOrientationCommandDictionary(Dictionary<string, MethodInfo> orientationCommands)
             {
                 string key = "";
                 MethodInfo methodInfo;
@@ -154,7 +152,7 @@ namespace Rover2Project
             private delegate Coordinates Move(Coordinates coords, int numberExecutions); 
             Move move = null;
 
-            public bool unitTesting = false; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
+            private bool unitTesting = false; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
 
 
             
@@ -199,7 +197,7 @@ namespace Rover2Project
             }
 
 
-            private String askForValidInputUntilReceivedThenReturnIt(String input)
+           public String askForValidInputUntilReceivedThenReturnIt(String input) //Make private if replace unit tests with console mocking unit test
             {
                 input = input.ToUpper();
 
@@ -219,7 +217,7 @@ namespace Rover2Project
             //Runs test to see if command will go out of bounds
             //If out of bounds, requests new command
             //If command doesn't take out of bounds then applies it to rover
-            private ResultType tryExecuteCommandGetResult(String command)
+            public ResultType tryExecuteCommandGetResult(String command) //Make private if replacing Unit tests with console mocking ones
             {
                 Coordinates testRoute = new Coordinates(lastCoordinates.X, lastCoordinates.Y, lastCoordinates.maxX, lastCoordinates.minX, lastCoordinates.maxY, lastCoordinates.minY, lastCoordinates.lastOrientation);
                 Coordinates[] testThenRover = new Coordinates[2] { testRoute, lastCoordinates };
@@ -273,7 +271,7 @@ namespace Rover2Project
                 return succeedResult;
             }
 
-            private void applyDirectionToDelegate(String ordinate)
+           private void applyDirectionToDelegate(String ordinate)
             {
                 move = (Move)Delegate.CreateDelegate(typeof(Move), orientationCommands[ordinate]);
             }
