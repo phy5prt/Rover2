@@ -10,16 +10,16 @@ namespace Rover2Project
     public class Program
     {
 
-        public static void Main(String[] Command)
+        public static void Main(String[] command)
         {
 
              //this block just catches unit tests
-                bool unitTesting = (Command.Length > 0);
+                bool unitTesting = (command.Length > 0);
                 if (unitTesting)
                 {
                 Rover myRoverUnitTest = new Rover(unitTesting);
-                String CommandStr = (Command.Length > 0) ? Command[0] : "";
-                    myRoverUnitTest.ExecutedCommand(myRoverUnitTest.askForValidInputUntilReceivedThenReturnIt(CommandStr));
+                String commandStr = (command.Length > 0) ? command[0] : "";
+                    myRoverUnitTest.tryExecuteCommandGetResult(myRoverUnitTest.askForValidInputUntilReceivedThenReturnIt(commandStr));
                     return; //just returning void so unit test doesnt trigger real test
                 }
             //end unit test block
@@ -190,7 +190,7 @@ namespace Rover2Project
                     Console.WriteLine($"Please Enter Command:\r\nValid movement commands: { string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands:  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nPress return for current status. Or press Q/q to quit.");
                     userResponse = Console.ReadLine().ToString(); if (userResponse == "Q" || userResponse == "q") { break; }
                     ResultType result;
-                    while (!(result = ExecutedCommand(askForValidInputUntilReceivedThenReturnIt(userResponse))).succeeded) //executed command checks command is in bounds
+                    while (!(result = tryExecuteCommandGetResult(askForValidInputUntilReceivedThenReturnIt(userResponse))).succeeded) //executed command checks command is in bounds
                     {
                         //to get the fail information we have to run the function twice, so either get a resultVariable and a have a do while or turn executedCommand to just return bool without error feedback
                             Console.WriteLine($"Please re-enter you command:\r\nLast Command exceeded allowed area at {result.failInformation}.\r\nThe rover has not been activated.\r\nValid movement commands: { string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands:  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nPress return for current status. ");
@@ -203,7 +203,7 @@ namespace Rover2Project
             //Runs test to see if command will go out of bounds
             //If out of bounds, requests new command
             //If command doesn't take out of bounds then applies it to rover
-            public ResultType ExecutedCommand(String Command) 
+            public ResultType tryExecuteCommandGetResult(String command) 
             {
                 Coordinates testRoute = new Coordinates (lastCoordinates.X, lastCoordinates.Y, lastCoordinates.maxX, lastCoordinates.minX, lastCoordinates.maxY, lastCoordinates.minY, lastCoordinates.lastOrientation);
                 Coordinates[] testThenRover = new Coordinates[2] { testRoute, lastCoordinates };
@@ -220,16 +220,16 @@ namespace Rover2Project
                     //This suggests maybe the coordinate system should store its own delegate. 
                     //This would allow different maps different limits, e.g, it had all-terrain mode with sensors protected, it may have a larger map in this mode
 
-                    for (int i = 0; i < Command.Length; i++)
+                    for (int i = 0; i < command.Length; i++)
                     {
-                        if (orientationCommands.ContainsKey(Command[i].ToString()))
+                        if (orientationCommands.ContainsKey(command[i].ToString()))
                         {
-                            testThenRover[j].lastOrientation = Command[i].ToString();
-                            applyDirectionToDelegate(Command[i].ToString());
+                            testThenRover[j].lastOrientation = command[i].ToString();
+                            applyDirectionToDelegate(command[i].ToString());
                         }
-                        else if (moveActions.ContainsKey(Command[i].ToString()))
+                        else if (moveActions.ContainsKey(command[i].ToString()))
                         {
-                            testThenRover[j] = move(testThenRover[j], moveActions[Command[i].ToString()]);
+                            testThenRover[j] = move(testThenRover[j], moveActions[command[i].ToString()]);
                         }
                         else
                         {
@@ -242,7 +242,7 @@ namespace Rover2Project
                         if (j ==0) {
                             if (testThenRover[j].Y < testThenRover[j].minY || testThenRover[j].Y > testThenRover[j].maxY || testThenRover[j].X > testThenRover[j].maxX || testThenRover[j].X < testThenRover[j].minX)
                             {
-                                String failResultStr = string.Format(" {0}  X = {1}   Y = {2} ", Command.Insert(i, "*").Insert(i + 2, "*"), testThenRover[j].X, testThenRover[j].Y);
+                                String failResultStr = string.Format(" {0}  X = {1}   Y = {2} ", command.Insert(i, "*").Insert(i + 2, "*"), testThenRover[j].X, testThenRover[j].Y);
                                 ResultType failResult = new ResultType(false, failResultStr);
                                 return failResult;
                             }

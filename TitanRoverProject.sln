@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rover2Project", "Rover2Project\Rover2Project.csproj", "{F3070D00-5054-42FE-A955-51A95C7C79DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TitanRoverProject", "Rover2Project\TitanRoverProject.csproj", "{F3070D00-5054-42FE-A955-51A95C7C79DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoverProject2UnitTests", "RoverProject2UnitTests\RoverProject2UnitTests.csproj", "{50BAF9FE-911D-46C5-9B27-9CE27AB24677}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TitanRoverProjectUnitTests", "RoverProject2UnitTests\TitanRoverProjectUnitTests.csproj", "{50BAF9FE-911D-46C5-9B27-9CE27AB24677}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
