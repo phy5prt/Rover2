@@ -1,0 +1,14 @@
+The unit tests aren’t really unit tests. A unit test should test each part of the system in isolation.
+
+Further to the above, in no circumstance should unit tests should not integrate into main application. (so i need to find a way of mocking console which i could do hence having to put it into the code)
+
+There’s no separation of classes into separate files. (This is from making things in unity not vs - do mvc course)
+
+Using nested classes instead of utilisation of namespaces. (go through sololearn and plan out version 2)
+
+Using string.format and string interpolation in the same code block are un-required. String interpolation converts to string format at compile time. 
+There are circumstances where we are using one or the other, in this case we could do with using the same for consistency.
+
+Code style needs to be consistent (casing for public / private / parameters should be the same throughout).
+
+The use of reflection puts an additional overhead that isn’t really required. (I knew this, I should not replace it in this version but make a second version doing it a different way)
