@@ -33,7 +33,8 @@ namespace TitanRoverProject
                 while (!(result = roverInterfacingWith.tryExecuteCommandGetResult(askForValidInputUntilReceivedThenReturnIt(userResponse))).succeeded) //executed command checks command is in bounds
                 {
                     //to get the fail information we have to run the function twice, so either get a resultVariable and a have a do while or turn executedCommand to just return bool without error feedback
-                    
+                    Console.WriteLine($"Please re-enter you command:\r\nLast Command exceeded allowed area at {result.failInformation}.\r\nThe rover has not been activated.\r\nValid movement commands: { string.Join("", MoveOrientationCommandsDics.moveActions.Keys.ToArray())}.\r\nValid direction commands:  {string.Join("", MoveOrientationCommandsDics.orientationCommands.Keys.ToArray())}.\r\nPress return for current status. ");
+
                     userResponse = Console.ReadLine().ToString(); //if (userResponse == "Q") { break; } //would need double break this is where if user has problems could be trapped could be it in function. To avoid nested while loop could use method instead enabling 'break' to work.
                 };
             }
