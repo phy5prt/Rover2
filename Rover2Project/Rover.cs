@@ -81,7 +81,7 @@ namespace TitanRoverProject
                     }
                     else
                     {
-                        //Console.WriteLine("Uncaught error"); 
+                       
                         ResultType failErrorResult = new ResultType(false);
                         return failErrorResult;
                     }
