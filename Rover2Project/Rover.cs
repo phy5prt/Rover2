@@ -9,21 +9,7 @@ namespace TitanRoverProject
 {
     public class Rover //If in the future there were multiple rovers, they'd need a name string
     {
-        public struct ResultType
-        {
-            public bool succeeded;
-            public string failInformation;
-
-
-
-            public ResultType(bool succeeded, string failInformation = "")
-            {
-                this.succeeded = succeeded;
-                if (failInformation == "") { this.failInformation = this.succeeded ? "succeeded" : "failed"; }
-                this.failInformation = failInformation;
-            }
-
-        }
+        
         
 
         //Orientation methods are in a dictionary so the commands can be keys, and keys can be automatically updated when new methods added (by rover constructor) 
