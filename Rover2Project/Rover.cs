@@ -12,37 +12,7 @@ namespace TitanRoverProject
         
         
 
-        //Orientation methods are in a dictionary so the commands can be keys, and keys can be automatically updated when new methods added (by rover constructor) 
-        private Dictionary<string, MethodInfo> orientationCommands = new Dictionary<string, MethodInfo>();
-
-        //MoveActions provide the value for the delegate when it is executed. The delegate holds the last orientation method it has been given.
-        //This is where to add movement functionality
-        private Dictionary<string, int> moveActions = new Dictionary<string, int>() {
-                {"M",1 }
-              //,{"B", -1 } //Remove comment lines to see how an additional moveAction is added to the program.
-            };
-
-        //If rover in future requires actions unrelated to movement they should be put in an action dictionary
-
-        //This class is where to add additional direction methods. They are automatically added to their dictionary through rover constructor
-        //And the dictionary is used in producing the checks and information for acceptable keyboard input
-        //Method name should be a single character that hasn't been used already as it will become the keyboard command and dictionary key
-        
-        private Dictionary<string, MethodInfo> MakeOrientationCommandDictionary(Dictionary<string, MethodInfo> orientationCommands)
-        {
-            string key = "";
-            MethodInfo methodInfo;
-            foreach (MethodInfo directionMethod in typeof(Directions).GetMethods())
-            {
-                if (directionMethod.Name.Length == 1) // length == 1 is necessary to exclude in-built default class methods
-                {
-                    key = directionMethod.Name;
-                    methodInfo = typeof(Directions).GetMethod(key);
-                    orientationCommands.Add(key, methodInfo);
-                }
-            }
-            return orientationCommands;
-        }
+       
 
         //The delegate holds the orientation, then movement is applied to the deligated orientation
         //There is one delegate for the rover, not one per coordinates, so if multiple coordinates are used, delegate will need to be reset
@@ -50,67 +20,32 @@ namespace TitanRoverProject
         private delegate Coordinates Move(Coordinates coords, int numberExecutions);
         Move move = null;
 
-        private bool unitTesting = true; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
+        //private bool unitTesting = true; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
 
 
 
-        private Coordinates lastCoordinates;
+        public Coordinates lastCoordinates;
 
         /// <summary>
         /// Rover Constructor
         /// </summary>
 
 
-        public Rover(bool unitTesting = false)
+        public Rover(/*bool unitTesting = false*/)
         {
             lastCoordinates = new Coordinates(); //To create a rover with a custom coordinate system, use rover constructor to provide variable for the coordinates constructor
-            orientationCommands = MakeOrientationCommandDictionary(orientationCommands);
             applyDirectionToDelegate(lastCoordinates.lastOrientation);
-            this.unitTesting = unitTesting;
+            //this.unitTesting = unitTesting;
         }
 
 
         /// <summary>
         /// Rover Methods Section in order of calling
         /// </summary>
-        public String interfaceWithUser()
-        {
-            Console.WriteLine("Rover Activated. Move rover with a sequence of movement commands and direction commands. E.g, 'EMMSM'");
-            String userResponse = "";
-            while (userResponse != "Q" || userResponse != "q")//just incase using breaks to do it so could be set as true
-            {
-
-                Console.WriteLine("Your current location and orientation is: " + lastCoordinates.getCoordDataShort());
-                Console.WriteLine($"Please Enter Command:\r\nValid movement commands: { string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands:  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nPress return for current status. Or press Q/q to quit.");
-                userResponse = Console.ReadLine().ToString(); if (userResponse == "Q" || userResponse == "q") { break; }
-                ResultType result;
-                while (!(result = tryExecuteCommandGetResult(askForValidInputUntilReceivedThenReturnIt(userResponse))).succeeded) //executed command checks command is in bounds
-                {
-                    //to get the fail information we have to run the function twice, so either get a resultVariable and a have a do while or turn executedCommand to just return bool without error feedback
-                    Console.WriteLine($"Please re-enter you command:\r\nLast Command exceeded allowed area at {result.failInformation}.\r\nThe rover has not been activated.\r\nValid movement commands: { string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands:  {string.Join("", orientationCommands.Keys.ToArray())}.\r\nPress return for current status. ");
-                    userResponse = Console.ReadLine().ToString(); //if (userResponse == "Q") { break; } //would need double break this is where if user has problems could be trapped could be it in function. To avoid nested while loop could use method instead enabling 'break' to work.
-                };
-            }
-            return userResponse;
-        }
+        
 
 
-        public String askForValidInputUntilReceivedThenReturnIt(String input) //Make private if replace unit tests with console mocking unit test
-        {
-            input = input.ToUpper();
 
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (!(orientationCommands.ContainsKey(input[i].ToString()) || moveActions.ContainsKey(input[i].ToString())))
-                {
-                    Console.WriteLine($"The command {input} contains the invalid instruction: {input[i]}.\r\nRover location and orientation has not been changed.\r\nPlease input new command sequence ");
-                    Console.WriteLine($"Valid movement command(s) are: {string.Join("", moveActions.Keys.ToArray())}.\r\nValid direction commands are:  {string.Join("", orientationCommands.Keys.ToArray())}");
-
-                    input = askForValidInputUntilReceivedThenReturnIt(Console.ReadLine().ToString());
-                }
-            }
-            return input;
-        }
 
         //Runs test to see if command will go out of bounds
         //If out of bounds, requests new command
@@ -135,18 +70,18 @@ namespace TitanRoverProject
 
                 for (int i = 0; i < command.Length; i++)
                 {
-                    if (orientationCommands.ContainsKey(command[i].ToString()))
+                    if (MoveOrientationCommandsDics.orientationCommands.ContainsKey(command[i].ToString()))
                     {
                         testThenRover[j].lastOrientation = command[i].ToString();
                         applyDirectionToDelegate(command[i].ToString());
                     }
-                    else if (moveActions.ContainsKey(command[i].ToString()))
+                    else if (MoveOrientationCommandsDics.moveActions.ContainsKey(command[i].ToString()))
                     {
-                        testThenRover[j] = move(testThenRover[j], moveActions[command[i].ToString()]);
+                        testThenRover[j] = move(testThenRover[j], MoveOrientationCommandsDics.moveActions[command[i].ToString()]);
                     }
                     else
                     {
-                        Console.WriteLine("Uncaught error");
+                        //Console.WriteLine("Uncaught error"); 
                         ResultType failErrorResult = new ResultType(false);
                         return failErrorResult;
                     }
@@ -163,7 +98,7 @@ namespace TitanRoverProject
                     }
                 }
             }
-            if (unitTesting) { Console.WriteLine(lastCoordinates.getCoordDataShort()); }
+            //if (unitTesting) { Console.WriteLine(lastCoordinates.getCoordDataShort()); }
 
             ResultType succeedResult = new ResultType(true);
             return succeedResult;
@@ -171,7 +106,7 @@ namespace TitanRoverProject
 
         private void applyDirectionToDelegate(String ordinate)
         {
-            move = (Move)Delegate.CreateDelegate(typeof(Move), orientationCommands[ordinate]);
+            move = (Move)Delegate.CreateDelegate(typeof(Move), MoveOrientationCommandsDics.orientationCommands[ordinate]);
         }
 
 
