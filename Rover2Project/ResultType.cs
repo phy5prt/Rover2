@@ -17,6 +17,6 @@ namespace TitanRoverProject
             if (failInformation == "") { this.failInformation = this.succeeded ? "succeeded" : "failed"; }
             this.failInformation = failInformation;
         }
-
+         
     }
 }

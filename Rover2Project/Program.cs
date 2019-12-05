@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-using System.Linq; //not using at moment
-using System.Reflection;
+
+
 
 namespace TitanRoverProject
 {
@@ -18,22 +15,22 @@ namespace TitanRoverProject
 
             //testing shouldnt be buil
 
-            //bool unitTesting = (command.Length > 0);
-            //if (unitTesting)
-            //{
-            //    Rover myRoverUnitTest = new Rover(unitTesting);
-            //    String commandStr = (command.Length > 0) ? command[0] : "";
-            //    myRoverUnitTest.tryExecuteCommandGetResult(myRoverUnitTest.askForValidInputUntilReceivedThenReturnIt(commandStr));
-            //    return; //Just returning void so unit test doesnt trigger myRover code after myRoverUnitTest
-            //}
+            bool unittesting = (command.Length > 0);
+            if (unittesting)
+            {
+                Rover myroverunittest = new Rover(unittesting);
+                string commandstr = (command.Length > 0) ? command[0] : "";
+                myroverunittest.tryExecuteCommandGetResult(myroverunittest.askForValidInputUntilReceivedThenReturnIt(commandstr));
+                return; //just returning void so unit test doesnt trigger myrover code after myroverunittest
+            }
 
             //End unit test block
 
             Rover myRover = new Rover();
             myRover.interfaceWithUser();
-           
+
         }
-        
+
     }
 }
 

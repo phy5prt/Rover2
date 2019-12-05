@@ -50,7 +50,7 @@ namespace TitanRoverProject
         private delegate Coordinates Move(Coordinates coords, int numberExecutions);
         Move move = null;
 
-        private bool unitTesting = false; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
+        private bool unitTesting = true; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
 
 
 
