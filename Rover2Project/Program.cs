@@ -8,7 +8,7 @@ namespace TitanRoverProject
     public class Program
     {
 
-        public static void Main(String[] command)
+        public static void Main(string[] args)
         {
 
             //This block just catches unit tests
