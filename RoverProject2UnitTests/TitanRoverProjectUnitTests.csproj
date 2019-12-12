@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Rover2Project">
-      <HintPath>..\Rover2Project\obj\Debug\netcoreapp2.2\Rover2Project.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Rover2Project\TitanRoverProject.csproj" />
   </ItemGroup>
 
 </Project>

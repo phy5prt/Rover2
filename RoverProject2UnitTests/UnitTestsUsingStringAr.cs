@@ -24,26 +24,42 @@ namespace TitanRoverProjectUnitTests
     public class UnitTest1StartLocationOrientation
     {
         private const string Expected = "1, 1, S";
-        [TestMethod]
+        [TestMethod, Timeout(2000)]
         public void TestMethod1()
         {
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                String myString = "";
-                String[] myStringAr = new string[] { myString };
-                Rover2Project.Program.Main(myStringAr);
-                var result = sw.ToString().Trim();
-                Assert.AreEqual(Expected, result);
-            }
+            //using (var sw = new StringWriter())
+            //{
+            //    Console.SetOut(sw);
+            //    String myString = "";
+            //    var inputString = new StringReader(myString); 
+
+            //    //String[] myStringAr = new string[] { myString };
+            //    Console.SetIn(inputString);
+            //    //TitanRoverProject.Program.Main(myStringAr);
+            //    var result = sw.ToString().Trim();
+            //    Assert.AreEqual(Expected, result);
+            //}
+
+            var output = new StringWriter();
+            Console.SetOut(output);
+
+            var input = new StringReader("");
+            Console.SetIn(input);
+
+            TitanRoverProject.Program.Main(new string[] { });
+            var result = output.ToString().Trim();
+           
+            Assert.AreEqual(Expected, result);
+        
         }
+
     }
 
     [TestClass]
     public class UnitTest2ChangeStartLocationOrientation
     {
         private const string Expected = "1, 1, N";
-        [TestMethod]
+        [TestMethod, Timeout(2000)]
         public void TestMethod2()
         {
             using (var sw = new StringWriter())
@@ -52,7 +68,7 @@ namespace TitanRoverProjectUnitTests
 
                 String myString = "N";
                 String[] myStringAr = new string[] { myString };
-                Rover2Project.Program.Main(myStringAr);
+                TitanRoverProject.Program.Main(myStringAr);
                 var result = sw.ToString().Trim();
                 Assert.AreEqual(Expected, result);
             }
@@ -62,7 +78,7 @@ namespace TitanRoverProjectUnitTests
     public class UnitTest3ChangeStartLocationOrientationThreeTimes
     {
         private const string Expected = "1, 1, W";
-        [TestMethod]
+        [TestMethod, Timeout(2000)]
         public void TestMethod3()
         {
             using (var sw = new StringWriter())
@@ -71,7 +87,7 @@ namespace TitanRoverProjectUnitTests
 
                 String myString = "NSW";
                 String[] myStringAr = new string[] { myString };
-                Rover2Project.Program.Main(myStringAr);
+                TitanRoverProject.Program.Main(myStringAr);
                 var result = sw.ToString().Trim();
                 Assert.AreEqual(Expected, result);
             }
@@ -81,7 +97,7 @@ namespace TitanRoverProjectUnitTests
     public class UnitTest4MoveForwardsOnce
     {
         private const string Expected = "1, 2, S";
-        [TestMethod]
+        [TestMethod, Timeout(2000)]
         public void TestMethod4()
         {
             using (var sw = new StringWriter())
@@ -89,7 +105,7 @@ namespace TitanRoverProjectUnitTests
                 Console.SetOut(sw);
                 String myString = "M";
                 String[] myStringAr = new string[] { myString };
-                Rover2Project.Program.Main(myStringAr);
+                TitanRoverProject.Program.Main(myStringAr);
                 var result = sw.ToString().Trim();
                 Assert.AreEqual(Expected, result);
             }
@@ -99,7 +115,7 @@ namespace TitanRoverProjectUnitTests
     public class UnitTest5LongCommand
     {
         private const string Expected = "3, 3, N";
-        [TestMethod]
+        [TestMethod, Timeout(2000)]
         public void TestMethod5()
         {
             using (var sw = new StringWriter())
@@ -108,7 +124,7 @@ namespace TitanRoverProjectUnitTests
                 // String[] stringAr = new string[] { "M", "E", "M", "M", "M", "S","M", "M", "W","M","N","M" };
                 String myString = "MEMMMSMMWMNM";
                 String[] myStringAr = new string[] { myString };
-                Rover2Project.Program.Main(myStringAr);
+                TitanRoverProject.Program.Main(myStringAr);
                 var result = sw.ToString().Trim();
                 Assert.AreEqual(Expected, result);
             }
@@ -118,7 +134,7 @@ namespace TitanRoverProjectUnitTests
     public class UnitTest6AcceptsAnyCase
     {
         private const string Expected = "3, 3, N";
-        [TestMethod]
+        [TestMethod, Timeout(2000)]
         public void TestMethod6()
         {
             using (var sw = new StringWriter())
@@ -127,7 +143,7 @@ namespace TitanRoverProjectUnitTests
                 // String[] stringAr = new string[] { "M", "e", "M", "M", "M", "s", "M", "M", "W", "m", "n", "M" };
                 String myString = "MeMMMsMMWmnM";
                 String[] myStringAr = new string[] { myString };
-                Rover2Project.Program.Main(myStringAr);
+                TitanRoverProject.Program.Main(myStringAr);
                 var result = sw.ToString().Trim();
                 Assert.AreEqual(Expected, result);
             }
