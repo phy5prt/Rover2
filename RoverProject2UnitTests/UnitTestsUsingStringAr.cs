@@ -14,8 +14,11 @@ using System.IO;
 /// If you wish to test the console a second unit test project should be added with mocking.
 /// These test should be duplicated and the unit testing block in main and the unit testing bool in rover and the if statement where it is used.
 /// </summary>
+/// 
+//try this https://gist.github.com/asierba/ad9978c8b548f3fcef40
+//or remove console controle from main and go direct to the individual classes and methods test per methods
 
-    namespace TitanRoverProjectUnitTests
+namespace TitanRoverProjectUnitTests
 {
     [TestClass]
     public class UnitTest1StartLocationOrientation
