@@ -8,7 +8,7 @@ using System.Reflection;
 namespace TitanRoverProject
 {
     //should be only class to interface with user
-    class UserInterface
+    public class UserInterface
     {
         //what if more than one and want to change
         //singleton as only one console
