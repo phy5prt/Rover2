@@ -20,10 +20,15 @@ using System.IO;
 
 namespace TitanRoverProjectUnitTests
 {
+
+
+
+
+    //old console test instead the above test the methods
     [TestClass]
     public class UnitTest1StartLocationOrientation
     {
-        private const string Expected = "1, 1, S";
+        private const string Expected = "cake";
         [TestMethod, Timeout(2000)]
         public void TestMethod1()
         {
@@ -48,7 +53,7 @@ namespace TitanRoverProjectUnitTests
 
             TitanRoverProject.Program.Main(new string[] { });
             var result = output.ToString().Trim();
-           
+        
             Assert.AreEqual(Expected, result);
         
         }

@@ -26,6 +26,10 @@ namespace TitanRoverProject
 
             //End unit test block
 
+
+            //later versions creating rovers and type of rover should be part of interface
+            //constructor for start location and map etc.
+
             Rover myRover = new Rover();
             UserInterface userInterface = new UserInterface(myRover);
             userInterface.interfaceWithUser();

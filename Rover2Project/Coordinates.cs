@@ -14,12 +14,12 @@ namespace TitanRoverProject
         //Later if the coordinates' maximums need to be changed, built in methods in the get and set could protect against
         //moving the maxX to less than the current coordinate or to alter current location if changing orientation or numbering
         //of the coordinate system
-        public int maxX { get; set; }
-        public int minX { get; set; }
-        public int maxY { get; set; }
-        public int minY { get; set; }
+        public int maxX { get;  }
+        public int minX { get;  }
+        public int maxY { get;  }
+        public int minY { get;  }
 
-        public string lastOrientation;
+        public string lastOrientation { get; set; }
         //Constructor uses default location and size coordinates
 
         public Coordinates(int X = 1, int Y = 1, int maxX = 10, int minX = 1, int maxY = 10, int minY = 1, string lastOrientation = "S")

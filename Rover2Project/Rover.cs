@@ -17,10 +17,11 @@ namespace TitanRoverProject
         //The delegate holds the orientation, then movement is applied to the deligated orientation
         //There is one delegate for the rover, not one per coordinates, so if multiple coordinates are used, delegate will need to be reset
         //When changing to a new Coordinates, the delegate needs to be reset to the Coordinates last orientation
+       
         private delegate Coordinates Move(Coordinates coords, int numberExecutions);
         Move move = null;
 
-        //private bool unitTesting = true; //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
+       //The Main class takes zero arguments unless unit testing. If this changes, the unit testing code will need to mock the console instead
 
 
 

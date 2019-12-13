@@ -6,8 +6,8 @@ namespace TitanRoverProject
 {
     public struct ResultType
     {
-        public bool succeeded;
-        public string failInformation;
+        public bool succeeded { get; }
+        public string failInformation { get; }
 
 
 
