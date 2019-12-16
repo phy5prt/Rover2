@@ -47,9 +47,16 @@ namespace TitanRoverProjectUnitTests
 
             TitanRoverProject.Rover myRover = new Rover();
             UserInterface userInterface = new UserInterface(myRover);
-            string result = userInterface.interfaceWithUser(); //but now what it will write line!
+            var result= "";
+         
+                userInterface.interfaceWithUser(); //but now what it will write line!
 
-            Assert.AreEqual(Expected, result);
+                Assert.AreEqual(Expected, result);
+            
+        
+    
+
+            
 
         }
 
@@ -191,4 +198,3 @@ namespace TitanRoverProjectUnitTests
     //}
 
 
-}
